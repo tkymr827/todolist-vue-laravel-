@@ -1,0 +1,96 @@
+@import url("https://fonts.googleapis.com/css?family=Sigmar+One&display=swap");
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 62.5%;
+}
+
+body {
+  margin: 5rem 10rem;
+}
+
+#app {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  max-height: 100vh;
+}
+
+#app h1 {
+  font-family: "Sigmar One", cursive;
+  font-size: 8rem;
+}
+
+#app .textarea {
+  margin: 3rem;
+}
+
+#app .textarea input {
+  width: 30rem;
+  padding: 1rem;
+  border: 0.1rem solid orange;
+}
+
+#app .textarea .btn {
+  margin-left: 3rem;
+  padding: 1rem 2rem;
+  color: #fff;
+  border-radius: 5rem;
+  box-shadow: 0 0.2rem 0 rgba(0, 0, 0, 0.7);
+  transition: 0.1s;
+  transform: translatey(-0.3rem);
+}
+
+#app .textarea .btn:active {
+  box-shadow: none;
+  transform: translateY(0);
+}
+
+#app .textarea .btn:focus {
+  outline: 0;
+}
+
+#app .textarea .btn-post {
+  background: #5ebbfa;
+}
+
+#app .textarea .btn-alldel {
+  background: #f55641;
+}
+
+#app .list ul {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+
+#app .list ul li {
+  position: relative;
+  height: 5rem;
+  width: 50vw;
+  line-height: 5rem;
+  font-size: 2rem;
+  list-style: none;
+  border: 0.1rem solid #229292;
+  margin: 0.5rem 0;
+}
+
+#app .list ul li input {
+  margin: 0 1rem;
+}
+
+#app .list ul li input:checked + label {
+  text-decoration: line-through;
+}
+
+#app .list ul li .fa-times {
+  position: absolute;
+  right: 2rem;
+  top: 30%;
+  color: red;
+}
