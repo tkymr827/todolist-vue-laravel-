@@ -12,7 +12,7 @@
 
 <body>
     <div id="app">
-        <h1 @click="sample">TodoList</h1>
+        <h1>TodoList</h1>
         <div class="textarea">
             <input type="text" placeholder="内容" v-model="text">
             <button class="btn btn-post" @click="post">送信</button>
@@ -20,7 +20,7 @@
         </div>
         <div class="list">
             <ul>
-                <li v-for="(list,index) in lists" :key="index"><input type="checkbox" id="check"><label for="check">@{{list}}</label><i class="fas fa-times" @click="delone(index)"></i></li>
+                <li v-for="(list,index) in lists" :key="index"><input type="checkbox" id="check"><label for="check">@{{list.memo}}</label><i class="fas fa-times" @click="delone(list.id)"></i></li>
             </ul>
         </div>
 

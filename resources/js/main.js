@@ -1,23 +1,29 @@
 window.Vue = require('vue'); 
 import axios from 'axios';
 
-window.onload=()=>{console.log("Hello")}
-
 new Vue({
   el:"#app",
   data:{
     text:"",
     lists:[],
-    seigen:40,
-    cnt:0
+    seigen:40
   },
   mounted(){
-    axios.get("/api/todos").then(response=>
-      response.data.forEach(value=>{
-        this.lists.push(value.memo)
-      }))
+    this.take()
   },
   methods:{
+    take:function(){
+      axios.get("/api/todos").then(response=>{
+        let keep = [];
+        let c = response.data.filter(e => {
+          if (keep.indexOf(e["id"]) === -1) {
+            keep.push(e["id"]);
+            return e;
+          }
+        });
+        this.lists = c
+      })
+    },
     post:function(){
       if(this.text ===""){
         alert("文字を入力してください")
@@ -26,26 +32,21 @@ new Vue({
         alert(`${this.seigen}文字以内にしてください`)
         return
       }
-      
-      // axios.get("/users").then(response=>console.log(response))
-      axios.post("/api/todos/post",{text:this.text}).then(response=>console.log(response))
+    
+      axios.post("/api/todos/post",{text:this.text})
 
-      this.lists.push(this.text)
       this.text=""
+      this.take()
     },
-    delone:function(index){
-      this.lists.splice(index,1)
-      // console.log(index)
-      // axios.post("/api/todos/delone",{ind:index}).then(res=>console.log(res))
+    delone:function(e){
+      axios.post("/api/todos/delone",{id:e})
+      this.take()
     },
     alldel:function(){
       if(confirm("全て削除しますか?")){
-        this.lists=[]
+        this.take()
+        axios.post("/api/todos/alldel")
       }
-      axios.post("/api/todos/alldel")
-    },
-    sample:function(){
-      axios.post("/api/todos/sample",{text:this.text,status:this.cnt}).then(response=>console.log(response))
     }
   }
 })

@@ -14397,29 +14397,31 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
 window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
 
-
-window.onload = function () {
-  console.log("Hello");
-};
-
 new Vue({
   el: "#app",
   data: {
     text: "",
     lists: [],
-    seigen: 40,
-    cnt: 0
+    seigen: 40
   },
   mounted: function mounted() {
-    var _this = this;
-
-    axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("/api/todos").then(function (response) {
-      return response.data.forEach(function (value) {
-        _this.lists.push(value.memo);
-      });
-    });
+    this.take();
   },
   methods: {
+    take: function take() {
+      var _this = this;
+
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("/api/todos").then(function (response) {
+        var keep = [];
+        var c = response.data.filter(function (e) {
+          if (keep.indexOf(e["id"]) === -1) {
+            keep.push(e["id"]);
+            return e;
+          }
+        });
+        _this.lists = c;
+      });
+    },
     post: function post() {
       if (this.text === "") {
         alert("文字を入力してください");
@@ -14427,35 +14429,25 @@ new Vue({
       } else if (this.text.length > this.seigen) {
         alert("".concat(this.seigen, "\u6587\u5B57\u4EE5\u5185\u306B\u3057\u3066\u304F\u3060\u3055\u3044"));
         return;
-      } // axios.get("/users").then(response=>console.log(response))
-
+      }
 
       axios__WEBPACK_IMPORTED_MODULE_0___default.a.post("/api/todos/post", {
         text: this.text
-      }).then(function (response) {
-        return console.log(response);
       });
-      this.lists.push(this.text);
       this.text = "";
+      this.take();
     },
-    delone: function delone(index) {
-      this.lists.splice(index, 1); // console.log(index)
-      // axios.post("/api/todos/delone",{ind:index}).then(res=>console.log(res))
+    delone: function delone(e) {
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post("/api/todos/delone", {
+        id: e
+      });
+      this.take();
     },
     alldel: function alldel() {
       if (confirm("全て削除しますか?")) {
-        this.lists = [];
+        this.take();
+        axios__WEBPACK_IMPORTED_MODULE_0___default.a.post("/api/todos/alldel");
       }
-
-      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post("/api/todos/alldel");
-    },
-    sample: function sample() {
-      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post("/api/todos/sample", {
-        text: this.text,
-        status: this.cnt
-      }).then(function (response) {
-        return console.log(response);
-      });
     }
   }
 });

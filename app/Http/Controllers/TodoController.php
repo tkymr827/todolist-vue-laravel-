@@ -69,17 +69,13 @@ class TodoController extends Controller
     public function delone(Todo $todo, Request $request)
     {
         // $todo->where("id", $request)->delete();
-        $todo->destroy($request->ind);
-        return $request->ind;
+        // $todo->destroy($request->ind);
+        $todo->destroy($request->id);
+        // return $request->id;
     }
     public function destroy(Todo $todo)
     {
         // $todo->delete();
         $todo->truncate();
-    }
-
-    public function sample(Request $request)
-    {
-        return $request->text;
     }
 }

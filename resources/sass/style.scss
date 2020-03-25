@@ -21,6 +21,9 @@ body {
     h1 {
         font-family: "Sigmar One", cursive;
         font-size: 8rem;
+        @media screen and(max-width:480px) {
+            font-size: 6rem;
+        }
     }
     .textarea {
         margin: 3rem;
@@ -37,6 +40,9 @@ body {
             box-shadow: 0 0.2rem 0 rgba(0, 0, 0, 0.7);
             transition: 0.1s;
             transform: translatey(-0.3rem);
+            @media screen and (max-width: 480px) {
+                margin-top: 2rem;
+            }
             &:active {
                 box-shadow: none;
                 transform: translateY(0);

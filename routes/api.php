@@ -22,4 +22,3 @@ Route::apiResource('todos', 'TodoController');
 Route::post("todos/post", "TodoController@store");
 Route::post("todos/alldel", "TodoController@destroy");
 Route::post("todos/delone", "TodoController@delone");
-Route::post("todos/sample", "TodoController@sample");
